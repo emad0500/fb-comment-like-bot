@@ -48,15 +48,10 @@ export default async function handler(req, res) {
             // استخراج الاسم الأول لصاحب التعليق
             const firstName = senderFullName.trim().split(' ')[0] || '';
 
-   // أ) عمل لاف للتعليق
+   // أ) عمل لايك للتعليق
     try {
-      const likeRes = await fetch(`https://graph.facebook.com/v19.0/${commentId}/reactions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'LOVE',
-          access_token: PAGE_ACCESS_TOKEN
-        })
+      const likeRes = await fetch(`https://graph.facebook.com/v19.0/${commentId}/likes?access_token=${PAGE_ACCESS_TOKEN}`, {
+        method: 'POST'
       });
               const likeData = await likeRes.json();
               console.log('👍 Like API Response:', likeData);
